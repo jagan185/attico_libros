@@ -1,7 +1,12 @@
-import "./App.css";
+import "../css/App.css";
 import { useState } from "react";
 
+import BookList from "./BookList";
+
 function App() {
+
+  const books = [];
+
   const [showSearchPage, setShowSearchpage] = useState(false);
 
   return (
@@ -275,7 +280,12 @@ function App() {
           <div className="open-search">
             <a onClick={() => setShowSearchpage(!showSearchPage)}>Add a book</a>
           </div>
+
+          <BookList books={books}/>
         </div>
+
+        
+
       )}
     </div>
   );
