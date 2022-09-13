@@ -1,4 +1,4 @@
-//react library and supporting libraries
+//react and supporting libraries
 import { useState, useEffect } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 
@@ -20,17 +20,33 @@ function App() {
 
   let navigate = useNavigate();
   const [books, setBooks] = useState([]);
-  const [screen, setScreen] = useState("list");
-  let readingBooks = [];
-  let wannaReadBooks = [];
-  let readBooks = [];
 
-  const filterBooks = () => {
-    readingBooks = books.filter((book) => { return book.shelf === 'currentlyReading'});
-    wannaReadBooks = books.filter((book) => { return book.shelf === 'wantToRead'});
-    readBooks = books.filter((book) => { return book.shelf === 'read'});
-  }
+  /**
+   * @description method to handle inverse data-flow
+   *              get book and new shelf value from the drop-down in <Book >
+   *              and update the shelf value in DB via API and the book shelf value in
+   *              books list in state and update the list in state
+   * @param {*} book
+   * @param {*} updatedShelf
+   */
+  const onBookShelfUpdate = (book, updatedShelf) => {
+    console.log('going to change the shelf ::',book, updatedShelf);
+    const updateBookShelf = async () => {
+      const resp = await BooksAPI.update(book, updatedShelf);
+      console.log(resp);
+      //if successfull response, find the existing book and update it's shelf,
+      //then add it back to the list and update state using setBooks() to re-render UI
+      const newBooksLst = books.map( (oldBook) => { return (oldBook.id === book.id ? {...oldBook, shelf:updatedShelf } : oldBook ); });
+      setBooks(newBooksLst);
 
+    }
+    updateBookShelf();
+  };
+
+  /**
+   * @description effect hook, invoked on component init.
+   *              get all books from BooksAPI and set the books list to be updated in state
+   */
   useEffect(() => {
     const getBooks = async () => {
       const res = await BooksAPI.getAll();
@@ -72,15 +88,15 @@ function App() {
             <div>
               <div className="bookshelf">
                 <h2 className="bookshelf-title">Currently Reading</h2>
-                <BookList books={books.filter((book) => { return book.shelf === 'currentlyReading'})} />
+                <BookList books={books.filter((book) => { return book.shelf === 'currentlyReading'})} onBookShelfUpdate={onBookShelfUpdate}/>
               </div>
               <div className="bookshelf">
                 <h2 className="bookshelf-title">Want to Read</h2>
-                <BookList books={books.filter((book) => { return book.shelf === 'wantToRead'})} />
+                <BookList books={books.filter((book) => { return book.shelf === 'wantToRead'})} onBookShelfUpdate={onBookShelfUpdate}/>
               </div>
               <div className="bookshelf">
                 <h2 className="bookshelf-title">Read</h2>
-                <BookList books={books.filter((book) => { return book.shelf === 'read'})} />
+                <BookList books={books.filter((book) => { return book.shelf === 'read'})} onBookShelfUpdate={onBookShelfUpdate}/>
               </div>
             </div>
           </div>
