@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 /**
  * @description function object for Book component,
  *              included as a child component in BookList
@@ -10,7 +11,7 @@ const Book = ({ book,onBookShelfUpdate }) => {
    * @description event handler for book shelf (status) dropdown
    *              get the updated book shelf and pass the book
    *              and the new shelf value up the component hierarchy via onBookShelfUpdate method (from props)
-   * @param {*} eve
+   * @param {*} eve - event
    */
   function handleBookShelfUpdate(eve){
     console.log('shelf update event', eve, ' : shelf value : ', eve.target.value);
@@ -52,4 +53,8 @@ const Book = ({ book,onBookShelfUpdate }) => {
   );
 };
 
+Book.propTypes = {
+  book: PropTypes.object.isRequired,
+  onBookShelfUpdate: PropTypes.func.isRequired
+};
 export default Book;

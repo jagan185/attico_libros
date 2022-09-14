@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+
 import Book from "./Book.js";
 
 /**
@@ -20,4 +20,8 @@ const BookList = ({ books,onBookShelfUpdate }) => {
   );
 };
 
+BookList.propTypes = {
+  books: PropTypes.array.isRequired,
+  onBookShelfUpdate: PropTypes.func.isRequired
+};
 export default BookList;
