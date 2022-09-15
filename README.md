@@ -1,6 +1,8 @@
 # MyReads Project - Atticos Libros
 
 ## App installation
+- naviage to Starter directory, verify package.json and package-lock.josn files
+- check node and nom versions
 - Install app using `npm install`
 - Run the app. server using `npm start`
 - app. will be avaialable on localhost:3000
