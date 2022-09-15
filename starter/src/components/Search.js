@@ -15,7 +15,10 @@ import * as BooksAPI from "../utils/BooksAPI.js";
 const Search = ({ books, onBookShelfUpdate }) => {
   const [booksSearched, setBooksSearched] = useState([]);
 
-  //when books get updated or new books are searched for, make sure the same books in searched list reflect the updated shelf
+  /**
+   * @description effect hook, invoked when books get updated
+   *              make sure the same books in searched list reflect the updated shelf
+   */
   useEffect(() => {
     const newBooksLst = booksSearched.map((oldBook) => {
       let updatedBook = books.find((book) => oldBook?.id === book?.id);
@@ -40,9 +43,7 @@ const Search = ({ books, onBookShelfUpdate }) => {
           booksReturned.map((bookFound) => {
             //console.log('book found',bookFound);
             let bookMatch = books.find((book) => {
-              return (
-                book.id === bookFound.id
-              );
+              return book.id === bookFound.id;
             });
             if (bookMatch) {
               console.log("found a match", bookMatch);

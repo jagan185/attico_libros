@@ -5,17 +5,22 @@ import PropTypes from "prop-types";
  * @param {Book} book - book to be rendered
  * @returns jsx to render the book in BookList component
  */
-const Book = ({ book,onBookShelfUpdate }) => {
-
+const Book = ({ book, onBookShelfUpdate }) => {
   /**
    * @description event handler for book shelf (status) dropdown
    *              get the updated book shelf and pass the book
-   *              and the new shelf value up the component hierarchy via onBookShelfUpdate method (from props)
+   *              and the new shelf value up the component hierarchy
+   *              via onBookShelfUpdate method (from props)
    * @param {*} eve - event
    */
-  function handleBookShelfUpdate(eve){
-    console.log('shelf update event', eve, ' : shelf value : ', eve.target.value);
-    onBookShelfUpdate(book,eve?.target?.value);
+  function handleBookShelfUpdate(eve) {
+    console.log(
+      "shelf update event",
+      eve,
+      " : shelf value : ",
+      eve.target.value
+    );
+    onBookShelfUpdate(book, eve?.target?.value);
   }
 
   return (
@@ -31,7 +36,11 @@ const Book = ({ book,onBookShelfUpdate }) => {
             }}
           ></div>
           <div className="book-shelf-changer">
-            <select value={book?.shelf} data-bookid={book?.id} onChange={handleBookShelfUpdate}>
+            <select
+              value={book?.shelf}
+              data-bookid={book?.id}
+              onChange={handleBookShelfUpdate}
+            >
               <option value="none" disabled>
                 Move to...
               </option>
@@ -44,7 +53,7 @@ const Book = ({ book,onBookShelfUpdate }) => {
         </div>
         <div className="book-title">{book?.title}</div>
         <div className="book-authors">
-          {book?.authors?.map((author,index) => {
+          {book?.authors?.map((author, index) => {
             return <p key={index}> {author} </p>;
           })}
         </div>
@@ -55,6 +64,6 @@ const Book = ({ book,onBookShelfUpdate }) => {
 
 Book.propTypes = {
   book: PropTypes.object.isRequired,
-  onBookShelfUpdate: PropTypes.func.isRequired
+  onBookShelfUpdate: PropTypes.func.isRequired,
 };
 export default Book;

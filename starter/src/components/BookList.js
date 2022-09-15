@@ -8,12 +8,18 @@ import Book from "./Book.js";
  * @param {*} onBookShelfUpdate -- method for inverse data-flow, passed down to <Book > from <App >
  * @returns
  */
-const BookList = ({ books,onBookShelfUpdate }) => {
+const BookList = ({ books, onBookShelfUpdate }) => {
   return (
     <div className="bookshelf-books">
       <ol className="books-grid">
         {books.map((book) => {
-          return <Book book={book} key={book?.id} onBookShelfUpdate={onBookShelfUpdate}/>;
+          return (
+            <Book
+              book={book}
+              key={book?.id}
+              onBookShelfUpdate={onBookShelfUpdate}
+            />
+          );
         })}
       </ol>
     </div>
@@ -22,6 +28,6 @@ const BookList = ({ books,onBookShelfUpdate }) => {
 
 BookList.propTypes = {
   books: PropTypes.array.isRequired,
-  onBookShelfUpdate: PropTypes.func.isRequired
+  onBookShelfUpdate: PropTypes.func.isRequired,
 };
 export default BookList;
