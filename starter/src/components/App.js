@@ -9,6 +9,7 @@ import "../css/App.css";
 //child components
 import MainPage from "./MainPage.js";
 import Search from "./Search.js";
+import NotFound from "./NotFound.js";
 
 /**
  * @description function object for the app
@@ -71,6 +72,7 @@ function App() {
   return (
     <div className="app">
       <Routes>
+        <Route path="*" element={<NotFound />} />
         <Route
           path="/"
           exact

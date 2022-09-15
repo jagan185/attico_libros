@@ -37,8 +37,8 @@ const Search = ({ books, onBookShelfUpdate }) => {
     console.log(eve.target.value);
     const searchTerm = eve.target.value;
     if (searchTerm.trim().length > 0) {
-      BooksAPI.search(searchTerm).then((booksReturned) => {
-        if (booksReturned.length > 0) {
+      BooksAPI.search(searchTerm.trim()).then((booksReturned) => {
+        if (booksReturned && booksReturned.length > 0) {
           let booksProcessed = [];
           booksReturned.map((bookFound) => {
             //console.log('book found',bookFound);
@@ -58,6 +58,10 @@ const Search = ({ books, onBookShelfUpdate }) => {
           });
           //update the state
           setBooksSearched(booksProcessed);
+        }
+        //reset the list when no search response
+        else{
+          setBooksSearched([]);
         }
       });
     } else {

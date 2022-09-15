@@ -14,12 +14,6 @@ const Book = ({ book, onBookShelfUpdate }) => {
    * @param {*} eve - event
    */
   function handleBookShelfUpdate(eve) {
-    console.log(
-      "shelf update event",
-      eve,
-      " : shelf value : ",
-      eve.target.value
-    );
     onBookShelfUpdate(book, eve?.target?.value);
   }
 
@@ -41,7 +35,7 @@ const Book = ({ book, onBookShelfUpdate }) => {
               data-bookid={book?.id}
               onChange={handleBookShelfUpdate}
             >
-              <option value="none" disabled>
+              <option value="moveTo" disabled>
                 Move to...
               </option>
               <option value="currentlyReading">Currently Reading</option>
